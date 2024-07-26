@@ -7,14 +7,13 @@
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
+    "forwardPorts": [
+        3306
+    ],
     "portsAttributes": {
         "80": {
             "label": "Drupal",
             "onAutoForward": "openBrowserOnce"
-        },
-        "db:3306": {
-            "label": "MariaDB",
-            "onAutoForward": "notify"
         }
     },
     // Use 'postCreateCommand' to run commands after the container is created.
