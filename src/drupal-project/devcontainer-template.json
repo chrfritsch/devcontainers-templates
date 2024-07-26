@@ -1,0 +1,12 @@
+{
+    "id": "drupal-project",
+    "version": "1.0.0",
+    "name": "Drupal Project",
+    "description": "A Template to quickly start a Drupal project",
+    "documentationURL": "https://github.com/chrfritsch/devcontainers-templates/blob/main/README.md",
+    "licenseURL": "https://github.com/chrfritsch/devcontainers-templates/blob/main/LICENSE",
+    "options": {},
+    "platforms": [
+        "Any"
+    ]
+}
