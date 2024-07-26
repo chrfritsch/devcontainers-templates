@@ -12,8 +12,7 @@ jobs:
         id: filter
         with:
           filters: |
-            color: ./**/color/**
-            hello: ./**/hello/**
+            drupal-project: ./**/drupal-project/**
 
   test:
     needs: [detect-changes]
