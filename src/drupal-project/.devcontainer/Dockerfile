@@ -1,5 +1,5 @@
 # https://www.drupal.org/docs/system-requirements/php-requirements
-FROM php:8.3-apache
+FROM mcr.microsoft.com/devcontainers/php:1-8.3
 
 # install the PHP extensions we need
 RUN set -eux; \
@@ -27,6 +27,8 @@ RUN set -eux; \
     --with-webp \
     ; \
     \
+    pecl install pcov; \
+    \
     docker-php-ext-install -j "$(nproc)" \
     gd \
     opcache \
@@ -52,7 +54,7 @@ RUN set -eux; \
 
 # Install MariaDB client
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client \ 
+    && apt-get install -y mariadb-client vim \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # set recommended PHP.ini settings
@@ -63,5 +65,3 @@ RUN { \
     echo 'opcache.max_accelerated_files=4000'; \
     echo 'opcache.revalidate_freq=60'; \
     } > /usr/local/etc/php/conf.d/opcache-recommended.ini
-
-COPY --from=composer:2 /usr/bin/composer /usr/local/bin/

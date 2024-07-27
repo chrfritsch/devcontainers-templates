@@ -10,21 +10,25 @@
     "forwardPorts": [
         3306
     ],
-    "portsAttributes": {
-        "80": {
-            "label": "Drupal",
-            "onAutoForward": "openBrowserOnce"
-        }
-    },
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash .devcontainer/scripts/postCreateCommand.sh",
+    "postStartCommand": "bash .devcontainer/scripts/postStartCommand.sh",
+    "containerEnv": {
+        "MYSQL_DATABASE": "mariadb",
+        "MYSQL_USER": "mariadb",
+        "MYSQL_PASSWORD": "mariadb",
+        "MYSQL_HOST": "db",
+        "DRUPAL_HASH_SALT": "drupal",
+        "SIMPLETEST_DB": "mysql://mariadb:mariadb@db/mariadb",
+        "SIMPLETEST_BASE_URL": "http://app"
+    },
     // Configure tool-specific properties.
     "customizations": {
         // Configurations from https://www.drupal.org/docs/develop/development-tools/editors-and-ides/configuring-visual-studio-code
         "vscode": {
             "extensions": [
-                "bmewburn.vscode-intelephense-client",
-                "xdebug.php-pack"
+                "xdebug.php-pack",
+                "recca0120.vscode-phpunit"
             ],
             "settings": {
                 "breadcrumbs.enabled": true,
@@ -68,6 +72,6 @@
             }
         }
         // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-        // "remoteUser": "root"
+        // "remoteUser": "apache"
     }
 }
