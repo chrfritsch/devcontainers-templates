@@ -8,19 +8,19 @@
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
     "forwardPorts": [
-        3306
+        "db:3306",
+        "selenium:7900"
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
     "postCreateCommand": "bash .devcontainer/scripts/postCreateCommand.sh",
     "postStartCommand": "bash .devcontainer/scripts/postStartCommand.sh",
     "containerEnv": {
-        "MYSQL_DATABASE": "mariadb",
-        "MYSQL_USER": "mariadb",
-        "MYSQL_PASSWORD": "mariadb",
-        "MYSQL_HOST": "db",
-        "DRUPAL_HASH_SALT": "drupal",
         "SIMPLETEST_DB": "mysql://mariadb:mariadb@db/mariadb",
-        "SIMPLETEST_BASE_URL": "http://app"
+        "SIMPLETEST_BASE_URL": "http://app",
+        "MINK_DRIVER_ARGS_WEBDRIVER": "[\"chrome\", {\"browserName\":\"chrome\",\"goog:chromeOptions\":{\"w3c\":false,\"args\":[\"--disable-gpu\", \"--no-sandbox\", \"--disable-dev-shm-usage\"]}}, \"http://selenium-chrome:4444/wd/hub\"]"
+    },
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:./vendor/bin"
     },
     // Configure tool-specific properties.
     "customizations": {
@@ -28,7 +28,9 @@
         "vscode": {
             "extensions": [
                 "xdebug.php-pack",
-                "recca0120.vscode-phpunit"
+                "recca0120.vscode-phpunit",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-mysql"
             ],
             "settings": {
                 "breadcrumbs.enabled": true,
@@ -68,6 +70,21 @@
                     "core/",
                     "core/includes",
                     "../vendor/"
+                ],
+                "sqltools.connections": [
+                    {
+                        "mysqlOptions": {
+                            "authProtocol": "default",
+                            "enableSsl": "Disabled"
+                        },
+                        "previewLimit": 50,
+                        "server": "db",
+                        "port": 3306,
+                        "driver": "MariaDB",
+                        "name": "db",
+                        "database": "mariadb",
+                        "username": "mariadb"
+                    }
                 ]
             }
         }
